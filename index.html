@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>بوبيان — فتح حساب</title>
+
+  <!-- Arabic webfont (Tajawal) -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #eceaea;           /* page background */
+      --card-bg: transparent;  /* content area (keeps grey look) */
+      --primary: #ff4d4d;      /* main red button */
+      --primary-dark: #e43f3f;
+      --accent: #c84a4a;
+      --text: #111;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: "Tajawal", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      color:var(--text);
+    }
+
+    /* center the demo content and constrain width to look like the screenshot */
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:28px 18px 48px;
+      box-sizing:border-box;
+    }
+
+    .card{
+      width:100%;
+      max-width:420px;
+      background:var(--card-bg);
+      border-radius:18px;
+      padding:18px 18px 30px;
+      box-sizing:border-box;
+      text-align:center;
+    }
+
+    /* logo at top */
+    .logo{
+      display:block;
+      margin:8px auto 18px;
+      width:160px;
+      max-width:46%;
+      height:auto;
+    }
+
+    /* big illustrative image */
+    .hero{
+      display:block;
+      margin:6px auto 18px;
+      width:72%;
+      max-width:320px;
+      height:auto;
+    }
+
+    h1{
+      font-size:22px;
+      line-height:1.35;
+      margin:28px 12px 12px;
+      font-weight:800;
+      color:#111;
+    }
+
+    p.lead{
+      font-size:16px;
+      line-height:1.9;
+      margin:10px 18px 24px;
+      color:#1b1b1b;
+      font-weight:400;
+    }
+
+    /* buttons */
+    .actions{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      padding:0 18px;
+      margin-top:8px;
+    }
+
+    .btn{
+      display:inline-block;
+      width:100%;
+      padding:14px 16px;
+      border-radius:42px;
+      font-size:17px;
+      font-weight:700;
+      text-decoration:none;
+      cursor:pointer;
+      box-sizing:border-box;
+      transition:transform .12s ease, box-shadow .12s ease;
+      border:0;
+    }
+
+    .btn:active{ transform:translateY(1px); }
+
+    .btn-primary{
+      background: linear-gradient(180deg,var(--primary) 0%, var(--primary-dark) 100%);
+      color:#fff;
+      box-shadow: 0 6px 18px rgba(244,76,76,0.18), inset 0 -3px 0 rgba(0,0,0,0.03);
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .btn-secondary{
+      background:#fff;
+      color:var(--accent);
+      border:3px solid rgba(190,120,110,0.18);
+      box-shadow:none;
+      font-weight:800;
+    }
+
+    /* subtle large spacing like mobile screenshot */
+    .spacer{
+      height:18px;
+    }
+
+    /* small responsive tweaks */
+    @media (min-width:520px){
+      .card{ padding:26px; border-radius:20px; }
+      h1{ font-size:24px; }
+      .hero{ width:60%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <main class="card" role="main" aria-labelledby="title">
+      <!-- الشعار الموفَر من المستخدم -->
+      <img class="logo" src="https://c.top4top.io/p_3661ckayw0.jpeg" alt="شعار بوبيان">
+
+      <!-- الصورة الثانية (الرسم التوضيحي) -->
+      <img class="hero" src="https://d.top4top.io/p_3661baz240.jpeg" alt="رسم توضيحي">
+
+      <h1 id="title">تطبيق بوبيان بنك متكامل في موبايلك</h1>
+
+      <p class="lead">
+        الفائز بجائزة أفضل تطبيق مصرفي. تطبيقنا يوفر لك باقة لا متناهية من الخدمات والمميزات على مدار الساعة وطوال أيام الأسبوع
+      </p>
+
+      <div class="actions" role="group" aria-label="إجراءات">
+        <a href="#" class="btn btn-primary" aria-label="افتح حسابك الجديد في بوبيان">افتح حسابك الجديد في بوبيان</a>
+        <a href="#" class="btn btn-secondary" aria-label="لديك حساب في بوبيان">لديك حساب في بوبيان</a>
+      </div>
+
+      <div class="spacer" aria-hidden="true"></div>
+    </main>
+  </div>
+</body>
+</html>
